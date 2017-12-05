@@ -1,24 +1,19 @@
 var pointsArray = document.getElementsByClassName('point');
 
-var animatePoints = function(points) {
+var animatePoints = function() {  // argument no longer needed since forEach will grab point node
 
-    var revealPoint = function(index) {
-
-        points[index].style.opacity = 1;
-        points[index].style.transform = "scaleX(1) translateY(0)";
-        points[index].style.msTransform = "scaleX(1) translateY(0)";
-        points[index].style.WebkitTransform = "scaleX(1) translateY(0)";
-
-    };
-    for (var i = 0; i < points.length; i++) {
-        revealPoint(i);
-    }
+    forEach(pointsArray, revealPoint = function(pointNode) { // grab each node from pointsArray and apply style
+        pointNode.style.opacity = 1;
+        pointNode.style.transform = "scaleX(1) translateY(0)";
+        pointNode.style.msTransform = "scaleX(1) translateY(0)";
+        pointNode.style.WebkitTransform = "scaleX(1) translateY(0)";
+    });
 };
 
 window.onload = function() {
     // Automatically animate the points on a tall screen where scrolling can't trigger the animation
     if (window.innerHeight > 950) {
-        animatePoints(pointsArray);
+        animatePoints(); // remove argument since forEach will access point node
     }
 
     var sellingPoints = document.getElementsByClassName('selling-points')[0];
@@ -26,7 +21,7 @@ window.onload = function() {
 
     window.addEventListener('scroll', function(event) {
         if (document.documentElement.scrollTop || document.body.scrollTop >= scrollDistance) {
-            animatePoints(pointsArray);
+            animatePoints(); // remove argument since forEach will access point node
         }
     });
 }
